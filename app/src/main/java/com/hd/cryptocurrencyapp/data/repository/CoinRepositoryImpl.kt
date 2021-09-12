@@ -1,6 +1,5 @@
 package com.hd.cryptocurrencyapp.data.repository
 
-import android.util.Log
 import com.hd.cryptocurrencyapp.data.remote.CoinPaprikaApi
 import com.hd.cryptocurrencyapp.data.remote.dto.CoinDetailDto
 import com.hd.cryptocurrencyapp.data.remote.dto.CoinDto

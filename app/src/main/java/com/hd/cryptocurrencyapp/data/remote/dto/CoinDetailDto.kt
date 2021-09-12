@@ -30,7 +30,7 @@ data class CoinDetailDto(
     @SerializedName("message")
     val message: String?,
     @SerializedName("name")
-    val name: String?,
+    val name: String="",
     @SerializedName("open_source")
     val openSource: Boolean?,
     @SerializedName("org_structure")

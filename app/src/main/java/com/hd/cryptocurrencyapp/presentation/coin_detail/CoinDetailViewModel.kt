@@ -1,6 +1,5 @@
 package com.hd.cryptocurrencyapp.presentation.coin_detail
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -8,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hd.cryptocurrencyapp.common.Constants
 import com.hd.cryptocurrencyapp.common.Resource
+import com.hd.cryptocurrencyapp.common.log
 import com.hd.cryptocurrencyapp.domain.use_case.get_coin.GetCoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -16,15 +16,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
-    private val getCoinUseCase: GetCoinUseCase, savedStateHandle: SavedStateHandle) : ViewModel() {
+    private val getCoinUseCase: GetCoinUseCase, savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
     private val _state = mutableStateOf(CoinDetailState())
     val state: State<CoinDetailState> = _state
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let {
-                getCoin(it)
-            }
+            getCoin(it)
+        }
     }
 
     private fun getCoin(coinId: String) {
@@ -35,7 +36,8 @@ class CoinDetailViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    _state.value = CoinDetailState(error = result.message ?: "An unexpected error occurred")
+                    _state.value =
+                        CoinDetailState(error = result.message ?: "An unexpected error occurred")
                 }
 
                 is Resource.Loading -> {
@@ -45,8 +47,7 @@ class CoinDetailViewModel @Inject constructor(
 
             }
 
-        }
-            .launchIn(viewModelScope)
+        }.launchIn(viewModelScope)
     }
 
 }
